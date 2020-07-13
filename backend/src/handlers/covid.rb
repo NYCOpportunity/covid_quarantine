@@ -38,7 +38,7 @@ class COVIDHandler
     @todays_date = local_time.strftime("%B %d, %Y")
     @current_time = local_time.strftime("%I:%M %p")
 
-    @quarantine_order_output_path = "#{@output_folder}/#{@submission[@submission_id_key]}/mandatory_quarantine.pdf"
+    @quarantine_order_output_path = "#{@output_folder}/#{@submission[@submission_id_key]}/quarantine_order.pdf"
 
     @pdftk = PdfForms.new
     @ses = ses
@@ -69,7 +69,7 @@ class COVIDHandler
     when "Had close contact (within 6 feet) with a person who tested positive for, or had symptoms of Covid-19."
       {"Close Contact" => "On",
        "Close contact date" => @submission[@close_contact_date_key]["value"] }
-    when "Have another reason for quarantine (i.e. You were told to quarantine by Test and Trace, you travelled into NY from a state with high Covid transmission)."
+    when "Have another reason to quarantine (i.e. you were told to quarantine by Test and Trace)."
       {"Other Reason" => "On",
        "Other Date" => @submission[@other_reason_date_key]["value"],
        "Other Reason for Quarantine" => @submission[@describe_key]["value"]}
@@ -111,7 +111,7 @@ class COVIDHandler
             "NYC Department of Health and Mental Hygiene"
     end
     @ses.send(
-        "Mandatory Or Precautionary Quarantine For Purposes Of Paid Sick Leave",
+        "NYC DOHMH Quarantine Order",
         text,
         html,
         to_addr,
@@ -119,7 +119,7 @@ class COVIDHandler
         sendername: ENV.fetch("FROM_ADDR_NAME", "NYC Department of Health and Mental Hygiene")
     )
     if not ENV.fetch("TENANCY") == "staging"
-        type = "MANDATORY OR PRECAUTIONARY QUARANTINE"
+        type = "Quarantine Order"
         @db.add_submission(type, should_email)
     end
   end
