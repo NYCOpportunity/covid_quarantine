@@ -69,15 +69,12 @@ class COVIDHandler
     when "Had close contact (within 6 feet) with a person who tested positive for, or had symptoms of Covid-19."
       {"Close Contact" => "On",
        "Close contact date" => @submission[@close_contact_date_key]["value"] }
+    when "Were told to quarantine because you travelled internationally including cruise ship travel."
+      {"Travel" => "On", "Travel Date" => @submission[@travel_date_key]["value"]}
     when "Have another reason to quarantine (i.e. you were told to quarantine by Test and Trace)."
       {"Other Reason" => "On",
        "Other Date" => @submission[@other_reason_date_key]["value"],
        "Other Reason for Quarantine" => @submission[@describe_key]["value"]}
-    when "Were told to quarantine because you travelled internationally including cruise ship travel."
-      {"Travel" => "On", "Travel Date" => @submission[@travel_date_key]["value"]}
-    when "Had a proximate exposure to someone (more than 6 feet) in an enclosed environment."
-      {"Proximate Exposure" => "On",
-       "Proximate Exposure Date" => @submission[@exposure_date_key]["value"]}
     end
   end
 
