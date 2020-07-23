@@ -116,7 +116,7 @@ class COVIDHandler
         sendername: ENV.fetch("FROM_ADDR_NAME", "NYC Department of Health and Mental Hygiene")
     )
     if not ENV.fetch("TENANCY") == "staging"
-        type = "Quarantine Order"
+        type = "QUARANTINE"
         @db.add_submission(type, should_email)
     end
   end
