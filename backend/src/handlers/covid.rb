@@ -31,6 +31,11 @@ class COVIDHandler
     @exposure_date_key = ENV.fetch("PROXIMATE_EXPOSURE_DATE_KEY", "94903920")
     @describe_key = ENV.fetch("DESCRIBE_KEY", "94903921")
 
+    @travel_within_date = ENV.fetch("TRAVEL_WITHIN_DATE", "96934828")
+    @travel_within_state = ENV.fetch("TRAVEL_WITHIN_STATE", "96934837")
+    @contacted_date = ENV.fetch("CONTACTED_DATE", "96934904")
+    @contacted_time = ENV.fetch("CONTACTED_TIME", "96972606")
+
     @full_name = "#{@submission[@name_key]["value"]["first"]} #{@submission[@name_key]["value"]["last"]}"
 
     # TODO: make this work with DLS (not urgent because requirement is approx. current time)
@@ -71,11 +76,19 @@ class COVIDHandler
        "Close contact date" => @submission[@close_contact_date_key]["value"] }
     when "Were told to quarantine because you travelled internationally including cruise ship travel."
       {"Travel" => "On", "Travel Date" => @submission[@travel_date_key]["value"]}
-    when "Have another reason to quarantine (i.e. you were told to quarantine by Test and Trace)."
+    when "Have another reason to quarantine according to a health department or government entity."
       {"Other Reason" => "On",
        "Other Date" => @submission[@other_reason_date_key]["value"],
        "Other Reason for Quarantine" => @submission[@describe_key]["value"]}
-    end
+    when "Were told to quarantine because you travelled within the United States to a location requiring quarantine."
+      {"Travel Within" => "On",
+       "state" => @submission[@travel_within_state]["value"],
+       "last within" => @submission[@travel_within_date]["value"]}
+     when "Were contacted by Test and Trace Corps and informed to self-quarantine."
+       {"Contacted by" => "On",
+        "contacted date" => @submission[@contacted_date]["value"],
+        "contacted time" => @submission[@contacted_time]["value"]}
+     end
   end
 
   def email_documents
