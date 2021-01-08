@@ -99,11 +99,25 @@ class COVIDHandler
     if should_email
         to_addr = @submission[@patient_email_key]["value"]
 
-        text = "Dear #{@full_name},\n\nThe Quarantine Order that you requested is attached to this email. Please sign and date on the last page. If you have any questions, please call the NYC Department of Health and Mental Hygiene Coronavirus Call Line at (855)–491–2667.\n\nSincerely,\n\nNYC Department of Health and Mental Hygiene"
+        text = "Dear #{@full_name},\n\nThe Quarantine Order that you requested is attached to this email. Please sign and date on the last page. If you have any questions, please call the NYC Department of Health and Mental Hygiene Coronavirus Call Line at (855)–491–2667.\n\n
+        In December 2020, New York State changed its recommendation for quarantine from 14 days to 10 days. You may end your quarantine after 10 days if you have no symptoms of COVID-19\n
+        but you must continue to quarantine if you develop symptoms as explained in the order. Your employer can consult the following guidance to confirm this:\n
+        https://coronavirus.health.ny.gov/system/files/documents/2020/12/covid19-health-advisory-updated-quarantine-guidance-12.26.20.pdf.\n\n
+        Nothing in this email shall preclude a hospital or other healthcare provider from requiring that its employees provide additional documentation or information that confirms the need for the self-\n
+        quarantine to its office of occupational health services or as otherwise directed.\n
+
+        Sincerely,\n\nNYC Department of Health and Mental Hygiene"
 
         html = "Dear #{@full_name},<br><br>" +
             "The Quarantine Order that you requested is attached to this email. Please sign and date on the last page. " +
             "If you have any questions, please call the NYC Department of Health and Mental Hygiene Coronavirus Call Line at (855)–491–2667.<br><br>" +
+            "In December 2020, New York State changed its recommendation for quarantine from 14 days to 10 days. You may end your quarantine after 10 days" + 
+            "if you have no symptoms of COVID-19 but you must continue to quarantine if you develop symptoms as explained in the order. Your<br>" +
+            "employer can consult the following guidance to confirm this:<br>" +
+            "https://coronavirus.health.ny.gov/system/files/documents/2020/12/covid19-health-advisory-updated-quarantine-guidance-12.26.20.pdf.<br><br>" +
+            "Nothing in this email shall preclude a hospital or other healthcare provider from requiring that its employees provide additional documentation" + 
+            "or information that confirms the need for the self-quarantine to its office of occupational health services or as otherwise directed.<br><br>" +
+
             "Sincerely,<br>" +
             "NYC Department of Health and Mental Hygiene<br>"
 
